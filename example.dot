@@ -1,0 +1,230 @@
+digraph opportunity {
+
+// 
+// Opportunity as Code
+//
+// Use this specification to document the current status of your sales opportunity.
+
+
+// Global defaults
+graph [rankdir=BT, fontname=Helvetica, fontsize=25, penwidth = 0]
+node [style=filled, fillcolor="grey97", fixedsize=true, fontname=Helvetica, fontsize=20]
+
+//
+// Organization 
+// 
+
+// Every person in the organization, except for champions and partners, 
+// are color coded as follows, based on their perceived Net Promoter status 
+// for the Hashicorp enterprise solution 
+//   Promoter  - springgreen 
+//   Passive   - yellow1
+//   Detractor - tomato (rotten tomato is more like it)
+//   Unknown   - grey97
+//
+// Champions and partners are by definition net promoters. They are 
+// color coded based on their ability to sell the Hashicorp enterprise 
+// solutions independently, i.e. their ability to influence. 
+//   Gold    - gold
+//   Silver  - silver 
+//   Bronze  - peru 
+//   Unknown - grey97
+//
+// Bronze indicates a lack of sales accumen, drive or product knowledge.
+// Silver indicates moderate sales accumen, drive or product knowledge.
+// Gold indicates exceptional sales accumen, drive, product knowledge and 
+// validated influence. 
+// 
+
+// Executives
+node [shape=pentagon, width=1.5, height=1.5] 
+// Colors:
+//   Promoter  - springgreen 
+//   Passive   - yellow1
+//   Detractor - tomato
+JaneSmith [label="Jane"]
+
+// Buyers
+node [shape=doublecircle, width=1.5, height=1.5]
+// Colors:
+//   Promoter  - springgreen 
+//   Passive   - yellow1
+//   Detractor - tomato 
+JohnSmith [label="John", fillcolor=yellow1]
+
+// Champions
+node [shape=star, width=2.3, height=2.3]
+// Colors:
+//   Gold   - gold
+//   Silver - silver 
+//   Bronze - peru 
+BobSmith [label="\nBob", fillcolor=gold]
+PamSmith [label="\nPam", fillcolor=silver]
+DaveKnight [label="\nDave\nKnight", fillcolor=peru]
+
+// Tech Leaders
+node [shape=octagon, width=1.5, height=1.5]
+// Colors:
+//   Promoter  - springgreen 
+//   Passive   - yellow1
+//   Detractor - tomato
+SteveSuiter [label="Steve", fillcolor=tomato]
+
+// Managers 
+node [shape=diamond, width=1.7, height=1.7]
+// Colors:
+//   Promoter  - springgreen 
+//   Passive   - yellow1
+//   Detractor - tomato
+TomBrady [label="Tom", fillcolor=springgreen]
+PatMahomes [label="Patrick", fillcolor=yellow1]
+PeytonManning [label="Peyton", fillcolor=tomato]
+
+// Trusted Practioners
+node [shape=oval, width=1.8, height=1.2]
+// Colors:
+//   Promoter  - springgreen 
+//   Passive   - yellow1
+//   Detractor - tomato
+JamesKirk [label="James T", fillcolor=tomato]
+
+// Partners
+node [shape=parallelogram, width=1.8, height=1.2]
+// Colors:
+//   Gold   - gold
+//   Silver - silver 
+//   Bronze - peru 
+AWS [label="AWS", fillcolor=silver]
+ShadowSoft [label="Shadow\nSoft", fillcolor=peru]
+
+
+//
+// Influence
+//
+
+JohnSmith -> JaneSmith
+AWS -> JaneSmith
+ShadowSoft -> JohnSmith
+
+TomBrady -> JohnSmith
+SteveSuiter -> TomBrady
+
+PatMahomes -> TomBrady
+PeytonManning -> TomBrady
+
+JamesKirk -> PatMahomes
+
+BobSmith -> JohnSmith
+PamSmith -> JohnSmith
+DaveKnight -> SteveSuiter
+PamSmith -> SteveSuiter
+PamSmith -> TomBrady
+
+//
+// Intelligence
+//
+
+edge [style=invis]
+
+
+//
+// Sale Indicators
+//
+
+node [shape=circle, width=1.7, height=1.7]
+// Colors:
+//    For all sales indicators other than red flags:
+//    True: springgreen 
+//    False: grey97 
+//    For red flags:
+//    True: tomato 
+//    False: grey97 
+  
+
+subgraph cluster_advantages {
+  // Colors: 
+  label = "Force Multipliers"
+
+  PersonalGain [label="Personal\nGain", fillcolor=grey97] // Seeking career advancement, or trying to save job 
+  NoComp [label="No\nComp", fillcolor=grey97]       // No external competition or RFP
+  ExcessBudget [label="Excess\nBudget", fillcolor=grey97] // Use it or lose it
+  {rank=same PersonalGain NoComp ExcessBudget}
+}
+
+subgraph cluster_redflags {
+  // Colors: 
+  label = "Red Flags"
+  OSS [label="Open\nSource\nSuccess"] 
+  Pilot [label="Pilot\nRequired"] 
+  {rank=same "OSS" "Pilot"}
+}
+
+
+subgraph cluster_tablestakes {
+  label = "Op Requirements"
+
+  // BanT
+  // The "a" are the executive and buyer nodes.
+  // The "n" are the various Drivers, Needs and Pain nodes. 
+  Budget 
+  Timeline
+
+  // meDDic (Decision criteria and process)
+  // The "e" is the buyer node. The "c" is the champion node.
+  // The "m" is the Quantified ROI (money made or saved) 
+  // The "i" are the various Drivers, Needs and Pain nodes 
+  DecisionProcess [label="Decision\nProcess"]
+  {rank=same Budget Timeline DecisionProcess}
+}
+
+subgraph cluster_needs {
+  label = "Drivers, Needs, Pain"
+  // Business Drivers  BANT needs / MEDDIC pain
+  NamedProject [label="Named\nProject"] // This means there is a planned business initiative
+  QuantifiedROI [label="Quantified\nROI"]
+  AuditFailure [label="Audit\nFailure"]
+  SystemFailure [label="System\nFailure"]
+  SecurityBreach [label="Security\nBreach"]
+  CloudSprawl [label="Cloud\nSprawl"] 
+  SystemEndOfLife [label="System\nEndOfLife"] 
+  CloudMigration [label="Cloud\nMigration"]
+  {rank=same "NamedProject" "AuditFailure" "SystemFailure" "SecurityBreach" "CloudSprawl" "SystemEndOfLife" "CloudMigration"}
+}
+
+//
+// Solutions 
+//
+
+node [shape=box]
+subgraph cluster_solutions {
+  label = "Solutions"
+  UseCase1 [label="Use\nCase1"] 
+  UseCase2 [label="Use\nCase2"] 
+  {rank=same "UseCase1" "UseCase2"} 
+}
+ 
+
+//
+// Rank Config
+// These edges are invisible. Pick first node in a rank, and 
+// tie it to the first node in another rank to force a hierarchy
+//
+
+edge [style=invis]
+
+// Rank 1 - Drivers/Needs/Pains
+Budget -> NamedProject
+
+// Rank 2 - Opportunity Requirements
+
+PersonalGain -> Budget
+
+// Rank 3 - Force Multipliers
+
+OSS -> PersonalGain
+
+// Rank 4 - Red flags
+
+UseCase1 -> OSS
+
+}
