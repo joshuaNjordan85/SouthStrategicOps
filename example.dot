@@ -137,7 +137,7 @@ node [shape=parallelogram, width=1.8, height=1.2]
 AWS [label="AWS", fillcolor=silver]
 ShadowSoft [label="Shadow\nSoft", fillcolor=peru]
 
-/* 
+ 
 
 //
 // Solutions 
@@ -199,7 +199,7 @@ subgraph cluster_tablestakes {
   // BanT
   // The "a" are the executive and buyer nodes.
   // The "n" are the various Drivers, Needs and Pain nodes. 
-  Budget [fillcolor=deepskyblue] 
+  Budget [fillcolor=grey97] 
   Timeline [fillcolor=grey97]
 
   // meDDic (Decision criteria and process)
@@ -229,7 +229,7 @@ subgraph cluster_needs {
   {rank=same "NamedProject" "AuditFailure" "SystemFailure" "SecurityBreach" "CloudSprawl" "SystemEndOfLife" "CloudMigration"}
 }
 
-*/
+
 
 /*
 
@@ -259,7 +259,6 @@ subgraph se_activities {
 
 edge [style=invis]
 
-/*
 // Rank 1 - Drivers/Needs/Pains
 Budget -> NamedProject
 // Rank 2 - Opportunity Requirements
@@ -269,7 +268,6 @@ OSS -> PersonalGain
 // Rank 4 - Red flags
 UseCase1 -> OSS
 // Rank 5 - Solutions
-*/
 
 /*
 Presentation -> UseCase1
@@ -303,12 +301,14 @@ DaveKnight -> SteveSuiter
 PamSmith -> SteveSuiter
 PamSmith -> TomBrady
 
-/*
+
 
 //
 // Intelligence
 //
 edge [style=dashed]
+
+/*
 
 PatMahomes -> SystemFailure
 PeytonManning -> NamedProject
@@ -324,6 +324,7 @@ TomBrady -> UseCase2
 PamSmith -> Timeline
 
 */
+
 
 //
 // Activity 
