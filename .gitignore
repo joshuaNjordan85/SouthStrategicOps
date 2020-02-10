@@ -52,3 +52,4 @@
 *.webp
 *.xlib
 *.x11
+!legend.png

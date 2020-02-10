@@ -10,7 +10,7 @@ An OaC file defines the current state of a sales opportunity. It tracks:
 5. All of the influence relationships between individuals in the organization
 6. All of the intelligence relationships between individuals in the orgainization and qualifying indicators
 
-The file is in the "dot" format used by Graphviz. To create an "Opportunity Chart", edit your OaC file and execute the following command (example outputs a PNG image) -
+The file is in the "dot" format used by Graphviz. To create an "Opportunity Map", edit your OaC file and execute the following command (example outputs a PNG image) -
 
   dot -Tpng <OaC_file_name>.dot -o <output_file_name>.png
 
@@ -19,5 +19,6 @@ To install Graphviz on your Mac, and the dot executable, execute -
   brew install graphviz  
 
 Leverage the example.dot file as a template for your opportunities OaC file. It has all the key information and conventions.
+
 
  
