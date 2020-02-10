@@ -137,6 +137,8 @@ node [shape=parallelogram, width=1.8, height=1.2]
 AWS [label="AWS", fillcolor=silver]
 ShadowSoft [label="Shadow\nSoft", fillcolor=peru]
 
+/* 
+
 //
 // Solutions 
 //
@@ -227,6 +229,9 @@ subgraph cluster_needs {
   {rank=same "NamedProject" "AuditFailure" "SystemFailure" "SecurityBreach" "CloudSprawl" "SystemEndOfLife" "CloudMigration"}
 }
 
+*/
+
+/*
 
 //
 // SE Activities 
@@ -244,6 +249,7 @@ subgraph se_activities {
   {rank=same Presentation Demo Workshop POV Pilot} 
 }
 
+*/
  
 //
 // Rank Configuration
@@ -253,6 +259,7 @@ subgraph se_activities {
 
 edge [style=invis]
 
+/*
 // Rank 1 - Drivers/Needs/Pains
 Budget -> NamedProject
 // Rank 2 - Opportunity Requirements
@@ -262,8 +269,13 @@ OSS -> PersonalGain
 // Rank 4 - Red flags
 UseCase1 -> OSS
 // Rank 5 - Solutions
+*/
+
+/*
 Presentation -> UseCase1
 // Rank N - SE Activities
+*/
+
 
 
 //
@@ -291,6 +303,8 @@ DaveKnight -> SteveSuiter
 PamSmith -> SteveSuiter
 PamSmith -> TomBrady
 
+/*
+
 //
 // Intelligence
 //
@@ -309,13 +323,17 @@ PatMahomes -> UseCase2
 TomBrady -> UseCase2
 PamSmith -> Timeline
 
+*/
+
 //
 // Activity 
 //
 edge [style=dashed]
 
+/*
 Presentation -> DaveKnight [label="1"] 
 Demo -> SteveSuiter [label="2"]
 Demo -> DevOps [label="3"]
+*/
 
 }
