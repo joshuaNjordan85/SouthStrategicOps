@@ -82,6 +82,7 @@ node [shape=pentagon, width=1.5, height=1.5]
 //   Passive   - yellow1
 //   Detractor - tomato
 JaneSmith [label="Jane", fillcolor=grey97]
+SteveP [label="Steve", fillcolor=springgreen]
 
 // Buyers
 node [shape=doublecircle, width=1.5, height=1.5]
@@ -190,7 +191,7 @@ subgraph cluster_redflags {
 
 subgraph cluster_tablestakes {
   // Colors: deepskyblue, grey97 
-  label = "Op Requirements"
+  label = "Opportunity Qualifier"
   node [shape=circle, width=1.7, height=1.7]
 
   // BanT
@@ -271,6 +272,7 @@ Presentation -> UseCase1
 
 edge [style=solid]
 
+JohnSmith -> SteveP
 JohnSmith -> JaneSmith
 AWS -> JaneSmith
 ShadowSoft -> JohnSmith
@@ -305,6 +307,7 @@ PatMahomes -> UseCase1
 PatMahomes -> UseCase2
 
 TomBrady -> UseCase2
+PamSmith -> Timeline
 
 //
 // Activity 
