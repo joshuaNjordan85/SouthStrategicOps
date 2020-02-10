@@ -1,0 +1,97 @@
+digraph legend {
+
+// 
+// Opportunity as Code (OaC)
+//
+
+
+// Global defaults
+graph [fontname=Helvetica, fontsize=25, penwidth=0]
+node [style=filled, fillcolor="grey97", fixedsize=true, fontname=Helvetica, fontsize=20]
+edge [fontname=Helvetica, fontsize=20]
+
+label = "Opportunity as Code (OaC) Map Legend"
+
+subgraph cluster_things {
+
+  // Executives
+  node [shape=pentagon, width=1.5, height=1.5] 
+  Exec [label="Exec", fillcolor=grey97]
+
+  // Buyers
+  node [shape=doublecircle, width=1.5, height=1.5]
+  Buyer [label="buyer", fillcolor=grey97]
+
+  // Champions
+  node [shape=star, width=2.3, height=2.3]
+  Champion [label="Champion", fillcolor=grey97]
+
+  // Tech Leaders
+  node [shape=octagon, width=1.5, height=1.5]
+  TechLeader [label="Tech\nLeader", fillcolor=grey97]
+
+  // Managers 
+  node [shape=diamond, width=1.7, height=1.7]
+  Manager [label="Manager", fillcolor=grey97]
+
+  // Practioner Teams
+  node [shape=oval, width=1.8, height=1.2]
+  Team [label="Entire Team", fillcolor=grey97]
+
+  // Partners
+  node [shape=parallelogram, width=1.8, height=1.2]
+  Partner [label="Partner", fillcolor=grey97]
+
+  //
+  // Solutions 
+  //
+
+  node [shape=box]
+  Solution [label="Solution"] 
+
+  //
+  // Indicators 
+  //
+
+  node [shape=circle, width=1.7, height=1.7]
+  Indicator [label="Sales\nIndicator", fillcolor=grey97] 
+
+  //
+  // SE Activities 
+  //
+
+  node [shape=trapezium, width=2.5, height=1.0]
+  Activity [label="SE Activity"] 
+
+  {rank=same Exec Buyer Champion TechLeader Manager Team Partner Solution Indicator} 
+}
+
+subgraph cluster_promoter {
+  label="For the influenced, color indicates Net Promoter status"
+  node [shape=diamond, width=1.7, height=1.7]
+  Manager1 [label="Promoter", fillcolor=springgreen]
+  Manager2 [label="Passive", fillcolor=yellow1]
+  Manager3 [label="Detractor", fillcolor=tomato]
+  Manager4 [label="Unknown", fillcolor=grey97]
+
+  {rank=same Manager1 Manager2 Manager3 Manager4}
+
+}
+
+subgraph cluster_champion {
+  label = "For the champions and partners, color indicates level of influence"
+  node [shape=star, width=2.3, height=2.3]
+  Champion1 [label="Excellent", fillcolor=gold]
+  Champion2 [label="Moderate", fillcolor=silver]
+  Champion3 [label="Poor", fillcolor=peru]
+  Champion4 [label="Unknown",fillcolor=grey97]
+
+  {rank=same Champion1 Champion2 Champion3 Champion4}
+}
+
+edge [style=invis]
+Exec -> Manager1
+Manager1 -> Champion1 
+ 
+}
+

@@ -1,14 +1,53 @@
 digraph opportunity {
 
 // 
-// Opportunity as Code
+// Opportunity as Code (OaC)
 //
 // Use this specification to document the current status of your sales opportunity.
+// Only one product should be tracked in this file. 
+// The AE is responsible for tracking all of the information that goes into 
+// this file.
+// The SE is responsible for updating this file, managing in Git, and generating 
+// the "Opportunity Maps".
+//
+// This must be an acyclic graph, i.e. two people can't influence each other. 
+// Leverage the company's org chart, although influencers don't need to report 
+// to the individual they influence.
+// 
+// To generate a graphic of your Opportunity Map, execute the following 
+// graphviz command:
+//   dot -Tpng <name_of_this_file>.dot -o <account>_<op_name>[_renewal<X>].png   
+//
+// Add this file and push updates to -
+//   https://github.com/MrDaveKnight/SouthStrategicOps.git 
+
+// File Layout
+//
+// Top - the people and solutions (EDIT THIS SECTION)
+// - Organization: all the individuals, teams and partners that may influence 
+//   the sale
+// - Solutions: the specific use cases being prescribed to the prospect/customer
+// Middle -  STATIC CONFIGURATION data (only modify if necessary) 
+// - Indicators: all of the sales opportunity status indicators - 
+//   BANT, MEDDIC, etc... 
+// - SE Activities: a list of available SE activities 
+// - Rank Configuration: for graph formatting only 
+// Bottom - the relationships (EDIT THIS SECTION)
+// - Influence: Who is influencing who 
+// - Intelligence: Who has provided information about the state of the opportunity
+// - Activity: engagements between SEs and the organization
+//  
+//
+// Identify all the individuals and partners that will influence the sale in 
+// the "Organization" section. Identify what we are selling in the "Solutions"
+// section. Identify all of the influence, intelligence and
+// activity in the "Relationships" section.
 
 
 // Global defaults
 graph [rankdir=BT, fontname=Helvetica, fontsize=25, penwidth = 0]
 node [style=filled, fillcolor="grey97", fixedsize=true, fontname=Helvetica, fontsize=20]
+edge [fontname=Helvetica, fontsize=20]
 
 //
 // Organization 
@@ -16,13 +55,13 @@ node [style=filled, fillcolor="grey97", fixedsize=true, fontname=Helvetica, font
 
 // Every person in the organization, except for champions and partners, 
 // are color coded as follows, based on their perceived Net Promoter status 
-// for the Hashicorp enterprise solution 
+// for the Hashicorp enterprise solution: 
 //   Promoter  - springgreen 
 //   Passive   - yellow1
 //   Detractor - tomato (rotten tomato is more like it)
 //   Unknown   - grey97
 //
-// Champions and partners are by definition net promoters. They are 
+// Champions and partners are by definition Net Promoters. They are 
 // color coded based on their ability to sell the Hashicorp enterprise 
 // solutions independently, i.e. their ability to influence. 
 //   Gold    - gold
@@ -80,13 +119,13 @@ TomBrady [label="Tom", fillcolor=springgreen]
 PatMahomes [label="Patrick", fillcolor=yellow1]
 PeytonManning [label="Peyton", fillcolor=tomato]
 
-// Trusted Practioners
+// Practioner Teams
 node [shape=oval, width=1.8, height=1.2]
 // Colors:
 //   Promoter  - springgreen 
 //   Passive   - yellow1
 //   Detractor - tomato
-JamesKirk [label="James T", fillcolor=tomato]
+DevOps [label="DevOps", fillcolor=tomato]
 
 // Partners
 node [shape=parallelogram, width=1.8, height=1.2]
@@ -98,12 +137,27 @@ AWS [label="AWS", fillcolor=silver]
 ShadowSoft [label="Shadow\nSoft", fillcolor=peru]
 
 //
-// Sale Indicators
+// Solutions 
+//
+
+subgraph cluster_solutions {
+  // Maintain the "UseCase<#>" convention!
+  label = "Solutions"
+  node [shape=box]
+
+  UseCase1 [label="Use\nCase\nOne"] 
+  UseCase2 [label="Use\nCase\nTwo"] 
+
+  {rank=same "UseCase1" "UseCase2"} 
+}
+
+//
+// Indicators 
 //
 
 // Colors:
 //    For all sales indicators other than red flags:
-//    True: springgreen 
+//    True: deepskyblue 
 //    False: grey97 
 //    For red flags:
 //    True: tomato 
@@ -111,78 +165,72 @@ ShadowSoft [label="Shadow\nSoft", fillcolor=peru]
   
 
 subgraph cluster_advantages {
-  // Colors: 
+  // Colors: deepskyblue, grey97 
   label = "Force Multipliers"
   node [shape=circle, width=1.7, height=1.7]
 
   PersonalGain [label="Personal\nGain", fillcolor=grey97] // Seeking career advancement, or trying to save job 
   NoComp [label="No\nComp", fillcolor=grey97]       // No external competition or RFP
   ExcessBudget [label="Excess\nBudget", fillcolor=grey97] // Use it or lose it
+
   {rank=same PersonalGain NoComp ExcessBudget}
 }
 
 subgraph cluster_redflags {
-  // Colors: 
+  // Colors: tomato, grey97 
   label = "Red Flags"
   node [shape=circle, width=1.7, height=1.7]
 
-  OSS [label="Open\nSource\nSuccess"] 
-  OnPrem [label="Pilot\nRequired"] 
+  OSS [label="Open\nSource\nSuccess", fillcolor=grey97] 
+  OnPrem [label="Pilot\nRequired", fillcolor=grey97] 
+
   {rank=same "OSS" "OnPrem"}
 }
 
 
 subgraph cluster_tablestakes {
+  // Colors: deepskyblue, grey97 
   label = "Op Requirements"
   node [shape=circle, width=1.7, height=1.7]
 
   // BanT
   // The "a" are the executive and buyer nodes.
   // The "n" are the various Drivers, Needs and Pain nodes. 
-  Budget 
-  Timeline
+  Budget [fillcolor=deepskyblue] 
+  Timeline [fillcolor=grey97]
 
   // meDDic (Decision criteria and process)
   // The "e" is the buyer node. The "c" is the champion node.
   // The "m" is the Quantified ROI (money made or saved) 
   // The "i" are the various Drivers, Needs and Pain nodes 
-  DecisionProcess [label="Decision\nProcess"]
+  DecisionProcess [label="Decision\nProcess", fillcolor=grey97]
+
   {rank=same Budget Timeline DecisionProcess}
 }
 
 subgraph cluster_needs {
+  // Colors: deepskyblue, grey97 
   label = "Drivers, Needs, Pain"
   node [shape=circle, width=1.7, height=1.7]
 
   // Business Drivers  BANT needs / MEDDIC pain
-  NamedProject [label="Named\nProject"] // This means there is a planned business initiative
-  QuantifiedROI [label="Quantified\nROI"]
-  AuditFailure [label="Audit\nFailure"]
-  SystemFailure [label="System\nFailure"]
-  SecurityBreach [label="Security\nBreach"]
-  CloudSprawl [label="Cloud\nSprawl"] 
-  SystemEndOfLife [label="System\nEndOfLife"] 
-  CloudMigration [label="Cloud\nMigration"]
+  NamedProject [label="Named\nProject", fillcolor=grey97] // This means there is a planned business initiative
+  QuantifiedROI [label="Quantified\nROI", fillcolor=grey97]
+  AuditFailure [label="Audit\nFailure", fillcolor=grey97]
+  SystemFailure [label="System\nFailure", fillcolor=grey97]
+  SecurityBreach [label="Security\nBreach", fillcolor=grey97]
+  CloudSprawl [label="Cloud\nSprawl", fillcolor=grey97] 
+  SystemEndOfLife [label="System\nEndOfLife", fillcolor=grey97] 
+  CloudMigration [label="Cloud\nMigration", fillcolor=grey97]
+
   {rank=same "NamedProject" "AuditFailure" "SystemFailure" "SecurityBreach" "CloudSprawl" "SystemEndOfLife" "CloudMigration"}
 }
 
-//
-// Solutions 
-//
-
-subgraph cluster_solutions {
-  // Use "UseCase<#>" convention!
-  label = "Solutions"
-  node [shape=box]
-
-  UseCase1 [label="Use\nCase\nOne"] 
-  UseCase2 [label="Use\nCase\nTwo"] 
-  {rank=same "UseCase1" "UseCase2"} 
-}
 
 //
-// SE Activities
+// SE Activities 
 //
+
 subgraph se_activities {
   label = "SE Activities"
   node [shape=trapezium, width=2.5, height=1.0]
@@ -196,9 +244,8 @@ subgraph se_activities {
 }
 
  
-
 //
-// Rank Config
+// Rank Configuration
 // These edges are invisible. Pick first node in a rank, and 
 // tie it to the first node in another rank to force a hierarchy
 //
@@ -207,24 +254,21 @@ edge [style=invis]
 
 // Rank 1 - Drivers/Needs/Pains
 Budget -> NamedProject
-
 // Rank 2 - Opportunity Requirements
 PersonalGain -> Budget
-
 // Rank 3 - Force Multipliers
 OSS -> PersonalGain
-
 // Rank 4 - Red flags
 UseCase1 -> OSS
-
 // Rank 5 - Solutions
-// Rank N - SE Activities
 Presentation -> UseCase1
+// Rank N - SE Activities
 
 
 //
 // Influence
 //
+
 edge [style=solid]
 
 JohnSmith -> JaneSmith
@@ -237,7 +281,7 @@ SteveSuiter -> TomBrady
 PatMahomes -> TomBrady
 PeytonManning -> TomBrady
 
-JamesKirk -> PatMahomes
+DevOps -> PatMahomes
 
 BobSmith -> JohnSmith
 PamSmith -> JohnSmith
@@ -249,18 +293,24 @@ PamSmith -> TomBrady
 // Intelligence
 //
 edge [style=dashed]
-/*
+
+PatMahomes -> SystemFailure
+PeytonManning -> NamedProject
 BobSmith -> DecisionProcess
 BobSmith -> Budget 
 JohnSmith -> Budget
-*/
+
+JohnSmith -> UseCase1
+PatMahomes -> UseCase1
+PatMahomes -> UseCase2
 
 //
 // Activity 
 //
 edge [style=dashed]
 
-/*
-Presentation -> DaveKnight 
-*/
+Presentation -> DaveKnight [label="1"] 
+Demo -> SteveSuiter [label="2"]
+Demo -> DevOps [label="3"]
+
 }
