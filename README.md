@@ -12,7 +12,7 @@ An OaC file defines the current state of a sales opportunity. It tracks:
 
 The file is in the "dot" format used by Graphviz. To create an "Opportunity Map", edit your OaC file and execute the following command (example outputs a PNG image) -
 
-&nbsp;&nbsp;&nbsp;&nbsp;dot -Tpng <OaC_file_name>.dot -o <output_file_name>.png
+     dot -Tpng <OaC_file_name>.dot -o <output_file_name>.png
 
 Notes:
 1. Only one product should be tracked in this file (TFE, Vault, Consul or Nomad).
@@ -23,7 +23,7 @@ Notes:
 
 To install Graphviz on your Mac, and the dot executable, execute -
 
-&nbsp;&nbsp;&nbsp;&nbsp;brew install graphviz  
+     brew install graphviz  
 
 Leverage the example.dot file as a template for your opportunities OaC file. It has all the key information and conventions.
 Reference the legend.png file for information about symbols and colors.
