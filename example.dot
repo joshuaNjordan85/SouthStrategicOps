@@ -231,7 +231,7 @@ subgraph cluster_needs {
 
 
 
-/*
+
 
 //
 // SE Activities 
@@ -249,7 +249,7 @@ subgraph se_activities {
   {rank=same Presentation Demo Workshop POV Pilot} 
 }
 
-*/
+
  
 //
 // Rank Configuration
@@ -268,11 +268,8 @@ OSS -> PersonalGain
 // Rank 4 - Red flags
 UseCase1 -> OSS
 // Rank 5 - Solutions
-
-/*
 Presentation -> UseCase1
 // Rank N - SE Activities
-*/
 
 
 
