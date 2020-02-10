@@ -305,8 +305,6 @@ PamSmith -> TomBrady
 //
 edge [style=dashed]
 
-/*
-
 PatMahomes -> SystemFailure
 PeytonManning -> NamedProject
 BobSmith -> DecisionProcess
@@ -320,7 +318,6 @@ PatMahomes -> UseCase2
 TomBrady -> UseCase2
 PamSmith -> Timeline
 
-*/
 
 
 //
@@ -328,10 +325,8 @@ PamSmith -> Timeline
 //
 edge [style=dashed]
 
-/*
 Presentation -> DaveKnight [label="1"] 
 Demo -> SteveSuiter [label="2"]
 Demo -> DevOps [label="3"]
-*/
 
 }
