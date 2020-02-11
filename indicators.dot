@@ -1,0 +1,103 @@
+digraph opportunity {
+
+
+
+// Global defaults
+graph [rankdir=LR, fontname=Helvetica, fontsize=25, penwidth = 0]
+node [style=filled, fillcolor="grey97", fixedsize=true, fontname=Helvetica, fontsize=20]
+edge [fontname=Helvetica, fontsize=20]
+
+//
+// Indicators 
+//
+
+subgraph cluster_advantages {
+  // Colors: deepskyblue, grey97 
+  label = "Force Multipliers"
+  node [shape=circle, width=1.7, height=1.7]
+
+  PersonalGain [label="Personal\nGain", fillcolor=grey97] // Seeking career advancement, or trying to save job 
+  NoComp [label="No\nComp", fillcolor=grey97]       // No external competition or RFP
+  ExcessBudget [label="Excess\nBudget", fillcolor=grey97] // Use it or lose it
+
+  {rank=same PersonalGain NoComp ExcessBudget}
+}
+
+subgraph cluster_redflags {
+  // Colors: tomato, grey97 
+  label = "Red Flags"
+  node [shape=circle, width=1.7, height=1.7]
+
+  OSS [label="Open\nSource\nSuccess", fillcolor=grey97] 
+  OnPrem [label="Pilot\nRequired", fillcolor=grey97] 
+
+  {rank=same "OSS" "OnPrem"}
+}
+
+
+subgraph cluster_tablestakes {
+  // Colors: deepskyblue, grey97 
+  label = "Opportunity Qualifiers"
+  node [shape=circle, width=1.7, height=1.7]
+
+  // BANT and MEDDPICC
+  // The "A" are the Exec and Buyer nodes
+  // The "N" is the UseCases node
+  // The "E" is the Buyer node
+  // The "C" is the Champion node
+  Budget [fillcolor=grey97]  // The "B"
+  Metrics [fillcolor=grey97] // The "M", how we could calculate an ROI 
+  DecisionCriteria [label="Decision\nCriteria", fillcolor=grey97] // A "D"
+  DecisionProcess [label="Decision\nCriteria", fillcolor=grey97] // The "T" and a "D" 
+  PaperProcess [label="Paper\nProcess", fillcolor=grey97] // The "P"
+  Pain [fillcolor=grey97] // The "I" 
+
+  // Big Deal Review
+  UseCases [label="Use\nCases", fillcolor=grey97] // business outcomes 
+  ValueMap [label="Value\nMap", fillcolor=grey97] // key enterprise features to business outcomes 
+
+  Competition [fillcolor=grey97] // A "C" 
+  
+  {rank=same Budget Metrics DecisionCriteria DecisionProcess PaperProcess Pain Competition UseCases ValueMap}
+}
+
+subgraph cluster_needs {
+  // Colors: deepskyblue, grey97 
+  label = "Compelling Events"
+  node [shape=circle, width=1.7, height=1.7]
+
+  NamedProject [label="Named\nProject", fillcolor=grey97] // This means there is a planned business initiative like a cloud migration
+  AuditFailure [label="Audit\nFailure", fillcolor=grey97]
+  SystemFailure [label="System\nFailure", fillcolor=grey97]
+  SecurityBreach [label="Security\nBreach", fillcolor=grey97]
+  CloudSprawl [label="Cloud\nSprawl", fillcolor=grey97] 
+  SystemEndOfLife [label="System\nEndOfLife", fillcolor=grey97] 
+
+  {rank=same "NamedProject" "AuditFailure" "SystemFailure" "SecurityBreach" "CloudSprawl" "SystemEndOfLife"}
+}
+
+
+
+
+
+
+ 
+//
+// Rank Configuration
+// These edges are invisible. Pick first node in a rank, and 
+// tie it to the first node in another rank to force a hierarchy
+//
+
+edge [style=invis]
+
+// Rank 1 - Drivers/Needs/Pains
+Budget -> NamedProject
+// Rank 2 - Opportunity Requirements
+PersonalGain -> Budget
+// Rank 3 - Force Multipliers
+OSS -> PersonalGain 
+// Rank 4 - Red flags
+
+
+
+}
