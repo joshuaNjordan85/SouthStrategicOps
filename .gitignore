@@ -1,3 +1,4 @@
+outputs
 *.bmp
 *.canon
 *.gv
@@ -23,7 +24,6 @@
 *.jpg
 *.jpeg
 *.jpe
-outputs
 *.json
 *.json0
 *.dot_json
