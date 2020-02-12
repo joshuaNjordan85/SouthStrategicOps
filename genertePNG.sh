@@ -1,3 +1,3 @@
 ##!/usr/bin/env bash
-dot -Tpng $(pwd)/$1.dot -o $(pwd)/outputs/$1.png && \
-echo "![$1](outputs/$1.png)" >> README.md
+mkdir $(pwd)/outputs && \
+for f in *.dot; do dot -Tpng $(pwd)/$f -o $(pwd)/outputs/$f.png; done

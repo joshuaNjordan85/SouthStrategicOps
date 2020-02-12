@@ -23,6 +23,7 @@
 *.jpg
 *.jpeg
 *.jpe
+outputs
 *.json
 *.json0
 *.dot_json
