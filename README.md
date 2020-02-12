@@ -28,4 +28,6 @@ To install Graphviz on your Mac, and the dot executable, execute -
 Leverage the example.dot file as a template for your opportunities OaC file. It has all the key information and conventions.
 
 Reference the legend.png file for information about symbols and colors.
- 
+
+# Current Ops
+![Equifax-TFE-Renewal](outputs/equifax_tfe_renewal.png)
