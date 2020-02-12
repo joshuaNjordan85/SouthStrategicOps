@@ -10,6 +10,15 @@ An OaC file defines the current state of a sales opportunity. It tracks:
 5. All of the influence relationships between individuals and partners
 6. All of the intelligence relationships between individuals and indicators
 
+You need Graphviz. To install it on your Mac, and the dot executable, execute:
+
+```
+brew install graphviz  
+```
+
+Leverage the example.dot file as a template for your opportunities OaC file. It has all the key information and conventions.
+
+Reference the legend.png file for information about symbols and colors.
 
 To generate the opp maps for all the dot files available, run the following command from the root of the directory:
 ```
@@ -29,14 +38,3 @@ Notes:
 4. Step 3 requires combining the info in step 2 with the "sources of intelligence" (who told us the information we used to fillout the Account Plan) and the subjective information regarding Net Promoter status and influence ratings.
 4. This must be an acyclic graph, i.e. two people can't influence each other (influence should flow up the org hierarchy).
 5. Leverage the company's org chart to describe the influence tree, but remember that influencers don't need to report to the individual they influence (you can have "dotted" line reporting).
-
-
-To install Graphviz on your Mac, and the dot executable, execute:
-
-```
-brew install graphviz  
-```
-
-Leverage the example.dot file as a template for your opportunities OaC file. It has all the key information and conventions.
-
-Reference the legend.png file for information about symbols and colors.
