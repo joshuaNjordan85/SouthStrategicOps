@@ -1,0 +1,331 @@
+digraph opportunity {
+
+//
+// Opportunity as Code (OaC)
+//
+// Use this specification to document the current status of your sales opportunity.
+// Only one product should be tracked in this file.
+// The AE is responsible for tracking all of the information that goes into
+// this file.
+// The SE is responsible for updating this file, managing in Git, and generating
+// the "Opportunity Maps".
+//
+// This must be an acyclic graph, i.e. two people can't influence each other.
+// Leverage the company's org chart, although influencers don't need to report
+// to the individual they influence.
+//
+// To generate a graphic of your Opportunity Map, execute the following
+// graphviz command:
+//   dot -Tpng <name_of_this_file>.dot -o <account>_<op_name>[_renewal<X>].png
+//
+// Add this file and push updates to -
+//   https://github.com/MrDaveKnight/SouthStrategicOps.git
+
+// File Layout
+//
+// Top - the people and solutions (EDIT THIS SECTION)
+// - Organization: all the individuals, teams and partners that may influence
+//   the sale
+// - Solutions: the specific use cases being prescribed to the prospect/customer
+// Middle -  STATIC CONFIGURATION data (only modify if necessary)
+// - Indicators: all of the sales opportunity status indicators -
+//   BANT, MEDDIC, etc...
+// - SE Activities: a list of available SE activities
+// - Rank Configuration: for graph formatting only
+// Bottom - the relationships (EDIT THIS SECTION)
+// - Influence: Who is influencing who
+// - Intelligence: Who has provided information about the state of the opportunity
+// - Activity: engagements between SEs and the organization
+//
+//
+// Identify all the individuals and partners that will influence the sale in
+// the "Organization" section. Identify what we are selling in the "Solutions"
+// section. Identify all of the influence, intelligence and
+// activity in the "Relationships" section.
+
+
+// Global defaults
+graph [rankdir=BT, fontname=Helvetica, fontsize=25, penwidth = 0]
+node [style=filled, fillcolor="grey97", fixedsize=true, fontname=Helvetica, fontsize=20]
+edge [fontname=Helvetica, fontsize=20]
+
+//
+// Organization
+//
+
+// Every person in the organization, except for champions and partners,
+// are color coded as follows, based on their perceived Net Promoter status
+// for the Hashicorp enterprise solution:
+//   Promoter  - springgreen
+//   Passive   - yellow1
+//   Detractor - tomato (rotten tomato is more like it)
+//   Unknown   - grey97
+//
+// Champions and partners are by definition Net Promoters. They are
+// color coded based on their ability to sell the Hashicorp enterprise
+// solutions independently, i.e. their ability to influence.
+//   Gold    - gold
+//   Silver  - silver
+//   Bronze  - peru
+//   Unknown - grey97
+//
+// Bronze indicates a lack of sales accumen, drive or product knowledge.
+// Silver indicates moderate sales accumen, drive or product knowledge.
+// Gold indicates exceptional sales accumen, drive, product knowledge and
+// validated influence.
+//
+
+// Executives
+node [shape=pentagon, width=1.5, height=1.5]
+// Colors:
+//   Promoter  - springgreen
+//   Passive   - yellow1
+//   Detractor - tomato
+JaneSmith [label="Jane", fillcolor=grey97]
+SteveP [label="Steve", fillcolor=springgreen]
+
+// Buyers
+node [shape=doublecircle, width=1.5, height=1.5]
+// Colors:
+//   Promoter  - springgreen
+//   Passive   - yellow1
+//   Detractor - tomato
+JohnSmith [label="John", fillcolor=yellow1]
+
+// Champions
+node [shape=star, width=2.3, height=2.3]
+// Colors:
+//   Gold   - gold
+//   Silver - silver
+//   Bronze - peru
+BobSmith [label="\nBob", fillcolor=gold]
+PamSmith [label="\nPam", fillcolor=silver]
+DaveKnight [label="\nDave\nKnight", fillcolor=peru]
+
+// Tech Leaders
+node [shape=octagon, width=1.5, height=1.5]
+// Colors:
+//   Promoter  - springgreen
+//   Passive   - yellow1
+//   Detractor - tomato
+SteveSuiter [label="Steve", fillcolor=tomato]
+
+// Managers
+node [shape=diamond, width=1.7, height=1.7]
+// Colors:
+//   Promoter  - springgreen
+//   Passive   - yellow1
+//   Detractor - tomato
+TomBrady [label="Tom", fillcolor=springgreen]
+PatMahomes [label="Patrick", fillcolor=yellow1]
+PeytonManning [label="Peyton", fillcolor=tomato]
+
+// Practioner Teams
+node [shape=oval, width=1.8, height=1.2]
+// Colors:
+//   Promoter  - springgreen
+//   Passive   - yellow1
+//   Detractor - tomato
+DevOps [label="DevOps", fillcolor=tomato]
+
+// Partners
+node [shape=parallelogram, width=1.8, height=1.2]
+// Colors:
+//   Gold   - gold
+//   Silver - silver
+//   Bronze - peru
+AWS [label="AWS", fillcolor=silver]
+ShadowSoft [label="Shadow\nSoft", fillcolor=peru]
+
+
+//
+// Solutions
+//
+
+subgraph cluster_solutions {
+  // Maintain the "UseCase<#>" convention!
+  label = "Solutions"
+  node [shape=box]
+
+  UseCase1 [label="Use\nCase\nOne"]
+  UseCase2 [label="Use\nCase\nTwo"]
+
+  {rank=same "UseCase1" "UseCase2"}
+}
+
+//
+// Indicators
+//
+
+// Colors:
+//    For all sales indicators other than red flags:
+//    True: deepskyblue
+//    False: grey97
+//    For red flags:
+//    True: tomato
+//    False: grey97
+
+
+subgraph cluster_advantages {
+  // Colors: deepskyblue, grey97
+  label = "Force Multipliers"
+  node [shape=circle, width=1.7, height=1.7]
+
+  PersonalGain [label="Personal\nGain", fillcolor=grey97] // Seeking career advancement, or trying to save job
+  NoComp [label="No\nComp", fillcolor=grey97]       // No external competition or RFP
+  ExcessBudget [label="Excess\nBudget", fillcolor=grey97] // Use it or lose it
+
+  {rank=same PersonalGain NoComp ExcessBudget}
+}
+
+subgraph cluster_redflags {
+  // Colors: tomato, grey97
+  label = "Red Flags"
+  node [shape=circle, width=1.7, height=1.7]
+
+  OSS [label="Open\nSource\nSuccess", fillcolor=grey97]
+  OnPrem [label="Pilot\nRequired", fillcolor=grey97]
+
+  {rank=same "OSS" "OnPrem"}
+}
+
+
+subgraph cluster_tablestakes {
+  // Colors: deepskyblue, grey97
+  label = "Opportunity Qualifiers"
+  node [shape=circle, width=1.7, height=1.7]
+
+  // BanT and MeDDPICc
+  // The "a" are the Exec and Buyer nodes
+  // The "n" is the UseCases node
+  // The "e" is the Buyer node
+  // The "c" is the Champion node
+  Competition [fillcolor=grey97] // The "C"
+
+  // Big Deal Review
+  UseCases [label="Use\nCases"] // business outcomes
+  ValueMap [label="Value\nMap"] // key enterprise features to business outcomes
+
+  // Back to BanT and MeDDPICc
+  Pain [fillcolor=grey97] // The "I"
+  PaperProcess [label="Paper\nProcess"] // The "P"
+  DecisionProcess [label="Decision\nCriteria"] // The "T" and a "D"
+  DecisionCriteria [label="Decision\nCriteria"] // The other "D"
+  Metrics  // The "M", how we could calculate an ROI
+  Budget   // The "B"
+
+
+  {rank=same Budget Metrics DecisionCriteria DecisionProcess PaperProcess Pain Competition UseCases ValueMap}
+}
+
+subgraph cluster_needs {
+  // Colors: deepskyblue, grey97
+  label = "Compelling Events"
+  node [shape=circle, width=1.7, height=1.7]
+
+  // Business Drivers  BANT needs / MEDDIC pain
+  CloudSprawl [label="Cloud\nSprawl"]
+  SystemEndOfLife [label="System\nEndOfLife"]
+  SystemFailure [label="System\nFailure"]
+  SecurityBreach [label="Security\nBreach"]
+  AuditFailure [label="Audit\nFailure"]
+  NamedProject [label="Named\nProject"] // This means there is a planned business initiative
+
+  {rank=same "NamedProject" "AuditFailure" "SystemFailure" "SecurityBreach" "CloudSprawl" "SystemEndOfLife"}
+}
+
+
+
+
+
+//
+// SE Activities
+//
+
+subgraph se_activities {
+  label = "SE Activities"
+  node [shape=trapezium, width=2.5, height=1.0]
+
+  Presentation [label="Presentation"]
+  Demo [label="Demo"]
+  Workshop [label="Workshop"]
+  POV [label="POV"]
+  Pilot [label="Pilot"]
+  {rank=same Presentation Demo Workshop POV Pilot}
+}
+
+
+
+//
+// Rank Configuration
+// These edges are invisible. Pick first node in a rank, and
+// tie it to the first node in another rank to force a hierarchy
+//
+
+edge [style=invis]
+
+// Rank 1 - Drivers/Needs/Pains
+Budget -> NamedProject
+// Rank 2 - Opportunity Requirements
+PersonalGain -> Budget
+// Rank 3 - Force Multipliers
+OSS -> PersonalGain
+// Rank 4 - Red flags
+Presentation -> OSS
+// Rank 5:N - Org
+// Rank N+1 - SE Activities
+
+
+
+//
+// Influence
+//
+
+edge [style=solid]
+
+JohnSmith -> SteveP
+JohnSmith -> JaneSmith
+AWS -> JaneSmith
+ShadowSoft -> JohnSmith
+
+TomBrady -> JohnSmith
+SteveSuiter -> TomBrady
+
+PatMahomes -> TomBrady
+PeytonManning -> TomBrady
+
+DevOps -> PatMahomes
+
+BobSmith -> JohnSmith
+PamSmith -> JohnSmith
+DaveKnight -> SteveSuiter
+PamSmith -> SteveSuiter
+PamSmith -> TomBrady
+
+
+
+//
+// Intelligence
+//
+edge [style=dashed]
+
+PatMahomes -> SystemFailure
+PeytonManning -> NamedProject
+BobSmith -> DecisionProcess
+BobSmith -> Budget
+JohnSmith -> Budget
+
+PamSmith -> DecisionProcess
+
+
+
+//
+// Activity
+//
+edge [style=dashed]
+
+Presentation -> DaveKnight [label="1"]
+Demo -> SteveSuiter [label="2"]
+Demo -> DevOps [label="3"]
+
+}
