@@ -76,11 +76,13 @@ edge [fontname=Helvetica, fontsize=20]
 //
 
 // Executives
-//node [shape=pentagon, width=1.5, height=1.5]
+node [shape=pentagon, width=1.5, height=1.5]
 // Colors:
 //   Promoter  - springgreen
 //   Passive   - yellow1
 //   Detractor - tomato
+JaneSmith [label="Jane", fillcolor=grey97]
+SteveP [label="Steve", fillcolor=springgreen]
 
 // Buyers
 node [shape=doublecircle, width=1.5, height=1.5]
@@ -88,7 +90,7 @@ node [shape=doublecircle, width=1.5, height=1.5]
 //   Promoter  - springgreen
 //   Passive   - yellow1
 //   Detractor - tomato
-Kumar [label="Kumar", fillcolor=grey97]
+JohnSmith [label="John", fillcolor=yellow1]
 
 // Champions
 node [shape=star, width=2.3, height=2.3]
@@ -96,8 +98,9 @@ node [shape=star, width=2.3, height=2.3]
 //   Gold   - gold
 //   Silver - silver
 //   Bronze - peru
-Viraj [label="\nViraj", fillcolor=gold]
-Vipul [label="\nVipul", fillcolor=gold]
+BobSmith [label="\nBob", fillcolor=gold]
+PamSmith [label="\nPam", fillcolor=silver]
+DaveKnight [label="\nDave\nKnight", fillcolor=peru]
 
 // Tech Leaders
 node [shape=octagon, width=1.5, height=1.5]
@@ -105,9 +108,7 @@ node [shape=octagon, width=1.5, height=1.5]
 //   Promoter  - springgreen
 //   Passive   - yellow1
 //   Detractor - tomato
-Quang [label="\nQuang", fillcolor=tomato]
-Mike  [label="\nMike", fillcolor=springgreen]
-John  [label="\nJohn", fillcolor=grey97]
+SteveSuiter [label="Steve", fillcolor=tomato]
 
 // Managers
 node [shape=diamond, width=1.7, height=1.7]
@@ -115,15 +116,17 @@ node [shape=diamond, width=1.7, height=1.7]
 //   Promoter  - springgreen
 //   Passive   - yellow1
 //   Detractor - tomato
-Hussein [label="Hussein", fillcolor=yellow1]
+TomBrady [label="Tom", fillcolor=springgreen]
+PatMahomes [label="Patrick", fillcolor=yellow1]
+PeytonManning [label="Peyton", fillcolor=tomato]
 
-// Practitioner Teams
+// Practioner Teams
 node [shape=oval, width=1.8, height=1.2]
 // Colors:
 //   Promoter  - springgreen
 //   Passive   - yellow1
 //   Detractor - tomato
-DataFabric [label="DataFabric", fillcolor=springgreen]
+DevOps [label="DevOps", fillcolor=tomato]
 
 // Partners
 node [shape=parallelogram, width=1.8, height=1.2]
@@ -131,20 +134,23 @@ node [shape=parallelogram, width=1.8, height=1.2]
 //   Gold   - gold
 //   Silver - silver
 //   Bronze - peru
-GCP [label="GCP", fillcolor=gold]
-Gigster [label="Gigster", fillcolor=gold]
+AWS [label="AWS", fillcolor=silver]
+ShadowSoft [label="Shadow\nSoft", fillcolor=peru]
+
 
 //
 // Solutions
 //
+
 subgraph cluster_solutions {
   // Maintain the "UseCase<#>" convention!
   label = "Solutions"
   node [shape=box]
-  PipelineGovernance [label="Pipeline\nGovernance"]
-  DropInPipeline [label="Drop\nIn\nPipeline"]
 
-  {rank=same "PipelineGovernance", "DropInPipeline"}
+  UseCase1 [label="Use\nCase\nOne"]
+  UseCase2 [label="Use\nCase\nTwo"]
+
+  {rank=same "UseCase1" "UseCase2"}
 }
 
 //
@@ -165,7 +171,7 @@ subgraph cluster_advantages {
   label = "Force Multipliers"
   node [shape=circle, width=1.7, height=1.7]
 
-  PersonalGain [label="Personal\nGain", fillcolor=deepskyblue] // Seeking career advancement, or trying to save job
+  PersonalGain [label="Personal\nGain", fillcolor=grey97] // Seeking career advancement, or trying to save job
   NoComp [label="No\nComp", fillcolor=grey97]       // No external competition or RFP
   ExcessBudget [label="Excess\nBudget", fillcolor=grey97] // Use it or lose it
 
@@ -177,50 +183,55 @@ subgraph cluster_redflags {
   label = "Red Flags"
   node [shape=circle, width=1.7, height=1.7]
 
-  OPA [label="OPA", fillcolor=tomato]
-  OSS [label="Open\nSource\nSuccess", fillcolor=tomato]
-  OnPrem [label="Pilot\nRequired", fillcolor=tomato]
+  OSS [label="Open\nSource\nSuccess", fillcolor=grey97]
+  OnPrem [label="Pilot\nRequired", fillcolor=grey97]
 
-  {rank=same "OSS" "OnPrem", "OPA"}
+  {rank=same "OSS" "OnPrem"}
 }
 
 
 subgraph cluster_tablestakes {
   // Colors: deepskyblue, grey97
-  label = "Opportunity Qualifier"
+  label = "Opportunity Qualifiers"
   node [shape=circle, width=1.7, height=1.7]
 
-  // BanT
-  // The "a" are the executive and buyer nodes.
-  // The "n" are the various Drivers, Needs and Pain nodes.
-  Budget [fillcolor=deepskyblue]
-  Timeline [fillcolor=deepskyblue]
+  // BanT and MeDDPICc
+  // The "a" are the Exec and Buyer nodes
+  // The "n" is the UseCases node
+  // The "e" is the Buyer node
+  // The "c" is the Champion node
+  Competition [fillcolor=grey97] // The "C"
 
-  // meDDic (Decision criteria and process)
-  // The "e" is the buyer node. The "c" is the champion node.
-  // The "m" is the Quantified ROI (money made or saved)
-  // The "i" are the various Drivers, Needs and Pain nodes
-  DecisionProcess [label="Decision\nProcess", fillcolor=deepskyblue]
+  // Big Deal Review
+  UseCases [label="Use\nCases"] // business outcomes
+  ValueMap [label="Value\nMap"] // key enterprise features to business outcomes
 
-  {rank=same Budget Timeline DecisionProcess}
+  // Back to BanT and MeDDPICc
+  Pain [fillcolor=grey97] // The "I"
+  PaperProcess [label="Paper\nProcess"] // The "P"
+  DecisionProcess [label="Decision\nCriteria"] // The "T" and a "D"
+  DecisionCriteria [label="Decision\nCriteria"] // The other "D"
+  Metrics  // The "M", how we could calculate an ROI
+  Budget   // The "B"
+
+
+  {rank=same Budget Metrics DecisionCriteria DecisionProcess PaperProcess Pain Competition UseCases ValueMap}
 }
 
 subgraph cluster_needs {
   // Colors: deepskyblue, grey97
-  label = "Drivers, Needs, Pain"
+  label = "Compelling Events"
   node [shape=circle, width=1.7, height=1.7]
 
   // Business Drivers  BANT needs / MEDDIC pain
-  NamedProject [label="Named\nProject", fillcolor=deepskyblue] // This means there is a planned business initiative
-  QuantifiedROI [label="Quantified\nROI", fillcolor=grey97]
-  AuditFailure [label="Audit\nFailure", fillcolor=grey97]
-  SystemFailure [label="System\nFailure", fillcolor=grey97]
-  SecurityBreach [label="Security\nBreach", fillcolor=deepskyblue]
-  CloudSprawl [label="Cloud\nSprawl", fillcolor=grey97]
-  SystemEndOfLife [label="System\nEndOfLife", fillcolor=grey97]
-  CloudMigration [label="Cloud\nMigration", fillcolor=grey97]
+  CloudSprawl [label="Cloud\nSprawl"]
+  SystemEndOfLife [label="System\nEndOfLife"]
+  SystemFailure [label="System\nFailure"]
+  SecurityBreach [label="Security\nBreach"]
+  AuditFailure [label="Audit\nFailure"]
+  NamedProject [label="Named\nProject"] // This means there is a planned business initiative
 
-  {rank=same "NamedProject" "AuditFailure" "SystemFailure" "SecurityBreach" "CloudSprawl" "SystemEndOfLife" "CloudMigration"}
+  {rank=same "NamedProject" "AuditFailure" "SystemFailure" "SecurityBreach" "CloudSprawl" "SystemEndOfLife"}
 }
 
 
@@ -237,9 +248,9 @@ subgraph se_activities {
 
   Presentation [label="Presentation"]
   Demo [label="Demo"]
+  Workshop [label="Workshop"]
   POV [label="POV"]
-  Architecture [label="Architecture"]
-
+  Pilot [label="Pilot"]
   {rank=same Presentation Demo Workshop POV Pilot}
 }
 
@@ -257,23 +268,12 @@ edge [style=invis]
 Budget -> NamedProject
 // Rank 2 - Opportunity Requirements
 PersonalGain -> Budget
-PersonalGain -> Timeline
-PersonalGain -> DecisionProcess
 // Rank 3 - Force Multipliers
 OSS -> PersonalGain
-OnPrem -> PersonalGain
 // Rank 4 - Red flags
-DropInPipeline -> OSS
-PipelineGovernance -> OPA
-// Rank 5 - Solutions
-Presentation -> DropInPipeline
-Presentation -> PipelineGovernance
-POV -> PipelineGovernance
-Demo -> PipelineGovernance
-Architecture -> DropInPipeline
-Architecture -> PipelineGovernance
-// Rank N - SE Activities
-
+Presentation -> OSS
+// Rank 5:N - Org
+// Rank N+1 - SE Activities
 
 
 
@@ -283,39 +283,40 @@ Architecture -> PipelineGovernance
 
 edge [style=solid]
 
-Viraj -> Kumar
-Vipul -> Viraj
-Viraj -> Vipul
-Quang -> Viraj
-Quang -> Vipul
-Mike -> Vipul
-John -> Viraj
-John -> Vipul
-GCP -> Viraj
-GCP -> Vipul
-GCP -> Quang
-Quang -> John
-Gigster -> Vipul
-Gigster -> Viraj
-DataFabric -> Kumar
+JohnSmith -> SteveP
+JohnSmith -> JaneSmith
+AWS -> JaneSmith
+ShadowSoft -> JohnSmith
+
+TomBrady -> JohnSmith
+SteveSuiter -> TomBrady
+
+PatMahomes -> TomBrady
+PeytonManning -> TomBrady
+
+DevOps -> PatMahomes
+
+BobSmith -> JohnSmith
+PamSmith -> JohnSmith
+DaveKnight -> SteveSuiter
+PamSmith -> SteveSuiter
+PamSmith -> TomBrady
+
+
 
 //
 // Intelligence
 //
 edge [style=dashed]
 
-Quang -> OPA
-Viraj -> DecisionProcess
-Viraj -> DataFabric
-Vipul -> DataFabric
-Vipul -> DecisionProcess
-Quang -> DecisionProcess
-John -> DecisionProcess
-John -> PipelineGovernance
-Quang -> PipelineGovernance
-Kumar -> Budget
-Gigster -> PipelineGovernance
-Mike -> DropInPipeline
+PatMahomes -> SystemFailure
+PeytonManning -> NamedProject
+BobSmith -> DecisionProcess
+BobSmith -> Budget
+JohnSmith -> Budget
+
+PamSmith -> DecisionProcess
+
 
 
 //
@@ -323,17 +324,8 @@ Mike -> DropInPipeline
 //
 edge [style=dashed]
 
-Presentation -> Viraj [label="3"]
-Presentation -> Gigster [label="3"]
-Presentation -> Vipul [label="3"]
-Presentation -> John [label="1"]
-Presentation -> Mike [label="2"]
-Presentation -> Quang [label="2"]
-Presentation -> Kumar [label="1"]
-Demo -> Viraj [label="1"]
-Demo -> Vipul [label="1"]
-Demo -> Gigster [label="3"]
-Architecture -> Quang [label="1"]
-Architecture -> Vipul [label="1"]
-Architecture -> Viraj [label="1"]
+Presentation -> DaveKnight [label="1"]
+Demo -> SteveSuiter [label="2"]
+Demo -> DevOps [label="3"]
+
 }
