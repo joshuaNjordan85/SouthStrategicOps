@@ -1,7 +1,7 @@
 ##!/usr/bin/env bash
 
 # Get all the dot files in an iterator
-for f in $(pwd)/*.dot
+for f in *.dot
 do
   png=$(echo $f | sed 's/dot/dot.png/')
   match=$(gsutil ls "gs://opportunity-as-code/${png}")
