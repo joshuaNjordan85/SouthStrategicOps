@@ -1,0 +1,29 @@
+name: Deploy to GCP Storage
+# This workflow is triggered on pushes to the repository.
+on:
+  push:
+    branches:
+      - "githubActionGCP"
+    paths:
+      - "**.dot"
+jobs:
+  build:
+    # Job name is Greeting
+    name: Deploy dot -> png -> Storage
+    # This job runs on Linux
+    runs-on: "ubuntu-latest"
+    steps:
+      # Get the Gcloud SDK
+      - uses: actions/checkout@v1
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: 'latest'
+          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+      - run: gcloud info
+      # Need graphviz to do all this
+      - name: Get deps
+        run: sudo apt-get install graphviz
+      # Runs local script to deploy files to bucket
+      - name: Deploy files
+        run: ./scripts/deployOCAs.sh
