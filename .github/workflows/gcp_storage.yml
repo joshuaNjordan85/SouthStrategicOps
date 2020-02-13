@@ -13,6 +13,8 @@ jobs:
     # This job runs on Linux
     runs-on: "ubuntu-latest"
     steps:
+      - name: Get python
+        run: sudo apt-get update
       # Get the Gcloud SDK
       - uses: actions/checkout@v1
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
